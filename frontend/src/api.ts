@@ -36,14 +36,21 @@ export const api = {
   login: (email: string, password: string) =>
     request<{ access_token: string; token_type: string }>("/auth/login", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
     }),
   register: (body: {
     email: string;
     full_name: string;
     password: string;
     role: "renter" | "owner";
-  }) => request<User>("/auth/register", { method: "POST", body: JSON.stringify(body) }),
+  }) =>
+    request<User>("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        ...body,
+        email: body.email.trim().toLowerCase(),
+      }),
+    }),
   me: () => request<User>("/users/me"),
   becomeOwner: () => request<User>("/users/me/become-owner", { method: "POST" }),
   vehicles: (params?: {

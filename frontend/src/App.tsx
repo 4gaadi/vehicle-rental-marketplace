@@ -9,6 +9,7 @@ import { AdminUsersPage } from "@/pages/admin/AdminUsersPage";
 import { AdminVehiclesPage } from "@/pages/admin/AdminVehiclesPage";
 import { BrowsePage } from "@/pages/BrowsePage";
 import { HomePage } from "@/pages/HomePage";
+import { HowItWorksPage } from "@/pages/HowItWorksPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { MyBookingsPage } from "@/pages/MyBookingsPage";
 import { OwnerBookingsPage } from "@/pages/OwnerBookingsPage";
@@ -37,6 +38,7 @@ export default function App() {
       <Route element={<Shell />}>
         <Route index element={<HomePage />} />
         <Route path="browse" element={<BrowsePage />} />
+        <Route path="how-it-works" element={<HowItWorksPage />} />
         <Route path="vehicles/:id" element={<VehicleDetailPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
