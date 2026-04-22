@@ -50,14 +50,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path="owner/listings"
-          element={
-            <RequireAuth>
-              <OwnerListingsPage />
-            </RequireAuth>
-          }
-        />
+        <Route path="owner/listings" element={<OwnerListingsPage />} />
         <Route
           path="owner/incoming"
           element={

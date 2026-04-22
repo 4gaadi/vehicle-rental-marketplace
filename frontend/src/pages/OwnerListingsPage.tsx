@@ -14,6 +14,15 @@ const cats: { value: VehicleCategory; label: string }[] = [
   { value: "cycle", label: "Cycle" },
 ];
 
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-11 w-11">
+      <rect x="4.5" y="10" width="15" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+    </svg>
+  );
+}
+
 export function OwnerListingsPage() {
   const { user, refresh } = useAuth();
   const qc = useQueryClient();
@@ -41,7 +50,11 @@ export function OwnerListingsPage() {
     "LED Lights",
   ];
 
-  const q = useQuery({ queryKey: ["my-vehicles"], queryFn: () => api.myVehicles() });
+  const q = useQuery({
+    queryKey: ["my-vehicles"],
+    queryFn: () => api.myVehicles(),
+    enabled: Boolean(user),
+  });
   const create = useMutation({
     mutationFn: () =>
       api.createVehicle({
@@ -70,6 +83,33 @@ export function OwnerListingsPage() {
     },
     onError: (e: Error) => setFormErr(e.message),
   });
+
+  if (!user) {
+    return (
+      <div className="min-h-[calc(100vh-72px)] bg-[#05060a] bg-[radial-gradient(circle_at_50%_0%,rgba(31,70,150,0.15)_0%,rgba(13,15,25,0.32)_20%,#05060a_52%)] text-white">
+        <div className="mx-auto flex max-w-[1480px] justify-center px-6 py-16 sm:px-10 lg:px-16">
+          <section className="mt-6 flex max-w-[850px] flex-col items-center text-center">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full border border-[#204da9] bg-[#10204a] text-[#2f66f3]">
+              <LockIcon />
+            </div>
+            <h1 className="mt-20 font-display text-5xl font-bold tracking-[-0.02em] text-white sm:text-6xl">
+              List Your Fleet
+            </h1>
+            <p className="mt-6 max-w-[780px] text-xl font-semibold leading-9 text-[#9a9ba3] sm:text-2xl">
+              Join hundreds of rental agencies growing their business through CROODZ.
+              <span className="block">Please login to list your vehicles.</span>
+            </p>
+            <Link
+              to="/login"
+              className="mt-12 inline-flex min-h-[68px] min-w-[235px] items-center justify-center rounded-lg bg-[#116bf6] px-8 text-lg font-bold text-white transition hover:bg-[#2f7dff]"
+            >
+              Login to Continue
+            </Link>
+          </section>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 space-y-8">
