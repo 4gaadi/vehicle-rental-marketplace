@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body {
-  @apply antialiased bg-slate-100 text-slate-900 min-h-screen;
+  @apply antialiased bg-[#05060a] text-white min-h-screen;
 }
