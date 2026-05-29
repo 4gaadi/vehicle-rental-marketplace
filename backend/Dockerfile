@@ -1,6 +1,8 @@
 FROM golang:1.22-alpine AS build
 WORKDIR /app
 
+RUN apk add --no-cache gcc musl-dev
+
 COPY go.mod ./
 RUN go mod download
 
